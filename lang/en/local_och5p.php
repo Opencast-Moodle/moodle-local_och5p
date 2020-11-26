@@ -31,3 +31,5 @@ $string['title_settings'] = 'H5P Opencast Extension - Settings';
 $string['setting_extended_themes'] = 'Extended Themes';
 $string['setting_extended_themes_desc'] = 'The seleced themes will be extended to have H5P Opencast Extension.';
 $string['extended_error'] = 'Unable to extend theme(s): %s';
+$string['flavor:presenter'] = 'Presenter';
+$string['flavor:presentation'] = 'Presentation';

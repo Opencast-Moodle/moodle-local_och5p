@@ -119,28 +119,49 @@ function getVideoQualities() {
         return strpos($track['mimetype'], 'video') !== FALSE;
     });
 
-    $res_quality = array();
-    $res_quality[] = "<option value=''>-</option>";
+    $sorted_videos = array();
     foreach ($video_tracks as $video_track ) {
-        $v_obj = array();
-        $v_obj['id']        = $video_track['id'];
-        $v_obj['url']        = $video_track['url'];
-        $v_obj['type']      = ($video_track['type'] == "presenter/delivery" ? 'Presenter' : 'Presentation' );
-        $v_obj['mime']      = str_replace('video/', '', $video_track['mimetype']);
 
-        if (isset($video_track['video']) && isset($video_track['video']['resolution'])) {
-            $v_obj['quality'] = $video_track['video']['resolution'];
-        } else if (isset($video_track['tags'])) {
+        //accept only videos otherwise reject!
+        if (strpos($video_track['mimetype'], 'video') === FALSE) {
+            continue;
+        }
+
+       $quality = '';
+
+        if (isset($video_track['tags'])) {
             foreach ($video_track['tags']['tag'] as $tag) {
-                if (strpos('quality', $tag) !== FALSE) {
-                    $v_obj['quality'] = $tag;
+                if (strpos($tag, 'quality') !== FALSE && empty($quality)) {
+                    $quality = str_replace('-quality', '', $tag);
                 }
             }
-        }
-        $res_quality[] = "<option data-info='" .
-            "{\"url\":\"{$v_obj['url']}\",\"type\":\"{$v_obj['type']}\",\"quality\":\"{$v_obj['quality']}\",\"mime\":\"{$video_track['mimetype']}\"}'" .
-            " value='{$v_obj['id']}'>{$v_obj['type']} - {$v_obj['quality']} - {$v_obj['mime']}" . 
-            "</option>";
+        } else if (isset($video_track['video']) && isset($video_track['video']['resolution'])) {
+            $quality = $video_track['video']['resolution'];
+        } 
+
+        $sorted_videos["{$video_track['type']} ({$video_track['mimetype']})"][$quality] = ["id" => $video_track['id'], "url" => $video_track['url']];
     }
-    return $res_quality;
+
+    $res_options = array();
+    $res_options[] = "<option value=''>-</option>";
+    foreach ($sorted_videos as $flav_type => $qualities) {
+        $r_obj = array();
+        $r_obj['type']      = ((strpos($flav_type, 'presenter/delivery') !== FALSE) ? get_string('flavor:presenter', 'local_och5p') : get_string('flavor:presentation', 'local_och5p'));
+        preg_match('#\((.*?)\)#', $flav_type, $match);
+        $r_obj['mime']      = str_replace('video/', '', $match[1]);
+
+        $option_text = "{$r_obj['type']} ({$r_obj['mime']})";
+
+        $option_value = array();
+        $qualities_arr = array();
+        foreach ($qualities as $quality => $video) {
+            $q_obj_str = '{"quality": "' . $quality . '", "url": "' . $video['url'] . '", "mime": "' . $match[1] . '", "id": "' . $video['id'] . '", "identifier": "' . $identifier . '"}';
+            $qualities_arr[] = $q_obj_str;
+            $option_value[] = $video['id'];
+        }
+        
+        $res_options[] = "<option data-info='{\"qualities\" : [" . implode(', ', $qualities_arr) . "]}' value='" . implode('&&', $option_value) . "'> $option_text </option>";
+    }
+
+    return $res_options;
 }

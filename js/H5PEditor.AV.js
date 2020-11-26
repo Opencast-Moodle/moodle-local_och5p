@@ -318,11 +318,12 @@
 
         this.$ocVideoQualitySelect = $oc_video_quality.change(function (e) {
             e.preventDefault();
-            var trackid = $(this).val().trim();
+            var ids = $(this).val().trim();
             var data = $(this).find(':selected').data('info');
-            if (trackid && data) {
-                data.identifier = self.$ocVideoSelect.val().trim();
-                self.useUrl(trackid, data);
+            if (ids && data && data.qualities) {
+                data.qualities.forEach(function (video_obj, index) {
+                    self.useUrl(ids, video_obj);
+                });
             }
             self.closeDialog();
         });
@@ -429,6 +430,9 @@
             file.id = url;
             file.identifier = opencastData.identifier;
             file.org = 'opencast';
+            file.metadata = {
+                "qualityName": opencastData.quality
+            }
         }
 
         var index = (this.updateIndex !== undefined ? this.updateIndex : this.params.length);
@@ -460,8 +464,22 @@
         var isYoutube = file.path && file.path.match(youtubeRegex);
         
         var isOpencast = (file.id && file.org && file.org == 'opencast') ? true : false;
+
+        if (!isOpencast) { //double check on edit part...
+            that.$ocVideoSelect.children().each(function(index, option) {
+                var oc_identifier = $(option).val();
+                if (oc_identifier == '') {
+                    return;
+                }
+                if (file.path && file.path.includes('/' + $(option).val() + '/')) {
+                    isOpencast = true;
+                }
+            });
+        }
+        
+
         // Only allow single source if YouTube
-        if (isYoutube || isOpencast) {
+        if (isYoutube) {
             // Remove all other files except this one
             that.$files.children().each(function (i) {
                 if (i !== that.updateIndex) {
@@ -477,7 +495,7 @@
         }
 
         this.$add.toggleClass('hidden', !!isYoutube);
-        this.$add.toggleClass('hidden', !!isOpencast);
+        // this.$add.toggleClass('hidden', !!isOpencast);
         
         // If updating remove and recreate element
         if (that.updateIndex !== undefined) {
@@ -487,10 +505,11 @@
         }
         
         // Create file with customizable quality if enabled and not youtube
-        if (this.field.enableCustomQualityLabel === true && !isYoutube && !isOpencast) {
+        if ((this.field.enableCustomQualityLabel === true && !isYoutube) || isOpencast) {
+            var thumbnail_mimetype = isOpencast ?  'Opencast' : file.mime.split('/')[1];
             fileHtml = '<li class="h5p-av-row">' +
             '<div class="h5p-thumbnail">' +
-            '<div class="h5p-type" title="' + file.mime + '">' + file.mime.split('/')[1] + '</div>' +
+            '<div class="h5p-type" title="' + file.mime + '">' + thumbnail_mimetype + '</div>' +
             '<div role="button" tabindex="0" class="h5p-remove" title="' + H5PEditor.t('core', 'removeFile') + '">' +
             '</div>' +
             '</div>' +
@@ -502,10 +521,9 @@
             '</li>';
         }
         else {
-            var thumbnail_mimetype = isOpencast ? 'Opencast' : file.mime.split('/')[1];
             fileHtml = '<li class="h5p-av-cell">' +
             '<div class="h5p-thumbnail">' +
-            '<div class="h5p-type" title="' + file.mime + '">' + thumbnail_mimetype + '</div>' +
+            '<div class="h5p-type" title="' + file.mime + '">' + file.mime.split('/')[1] + '</div>' +
             '<div role="button" tabindex="0" class="h5p-remove" title="' + H5PEditor.t('core', 'removeFile') + '">' +
             '</div>' +
             '</li>';
@@ -530,11 +548,15 @@
                 return; // Do not allow editing of file while uploading
             }
             if (isOpencast) {
-                that.$addDialog.addClass('h5p-open');
-                that.$ocVideoSelect.val(that.params[index].identifier);
-                that.$ocVideoSelect.data('predefinedQuality', that.params[index].id);
-                // that.$ocVideoQualitySelect.val(that.params[index].id);
-                that.$ocVideoSelect.trigger('change');
+
+                /* It will create confusion since several qualities will be added to the file list automatically
+                    therefore, it will be prevented to edit opencast videos 
+                */
+               return;
+                // that.$addDialog.addClass('h5p-open');
+                // that.$ocVideoSelect.val(that.params[index].identifier);
+                // that.$ocVideoSelect.data('predefinedQuality', that.params[index].id);
+                // that.$ocVideoSelect.trigger('change');
             } else {
                 that.$addDialog.addClass('h5p-open').find('.h5p-file-url').val(that.params[index].path);
             }
