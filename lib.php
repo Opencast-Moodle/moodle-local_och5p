@@ -31,7 +31,7 @@ function local_och5p_extend_themes() {
     $returnurl = new \moodle_url('/admin/settings.php?section=local_och5p_settings');
 
     $to_be_extended_themes_str = get_config('local_och5p', 'extended_themes');
-    $to_be_extended_themes = explode(',', $to_be_extended_themes_str);
+    $to_be_extended_themes = !empty($to_be_extended_themes_str) ? explode(',', $to_be_extended_themes_str) : array();
 
     $available_themes = \core_component::get_plugin_list('theme');
 
