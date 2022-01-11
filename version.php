@@ -26,8 +26,8 @@ defined('MOODLE_INTERNAL') || die;
 
 // Defining this plug-in metadata.
 $plugin->component = 'local_och5p';
-$plugin->release = '2.1.0';
-$plugin->version =  2021112500;
+$plugin->release = '2.1.1';
+$plugin->version =  2022011100;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2019111800;
 $plugin->dependencies = array(

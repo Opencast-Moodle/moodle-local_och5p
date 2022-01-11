@@ -190,7 +190,7 @@ class opencast_manager
      *
      * @return local_och5p\local\api_manager och5p api_manager instance.
      */
-    public static function get_opencast_search_service_api_instance() {
+    public static function get_opencast_search_service_api_instance($returnbaseurl = false) {
         // Get api_manager instance.
         $api = new api_manager();
 
@@ -222,6 +222,10 @@ class opencast_manager
             $api = new api_manager([], $customconfigs);
         }
 
+        // If only the baseurl is needed.
+        if ($returnbaseurl) {
+            return $api->baseurl;
+        }
         // Finally, we return the api_manager instance to make search calls.
         return $api;
     }
@@ -233,6 +237,31 @@ class opencast_manager
      * @return array lti parameters.
      */
     public static function get_lti_params($courseid) {
+        $params = [];
+        // Get the endpoint url of the default oc instance.
+        $mainltiendpoint = get_config('tool_opencast', 'apiurl');
+        // Generate lti params for the main oc instance.
+        $params['main'] = self::generate_lti_params($courseid, $mainltiendpoint);
+        // Get the endpoint url of the search node instance.
+        $searchnodeltiendpoint = self::get_opencast_search_service_api_instance(true);
+
+        // Check if the opencast uses different nodes.
+        if ($mainltiendpoint != $searchnodeltiendpoint) {
+            // Generate lti params for the search node.
+            $params['search'] = self::generate_lti_params($courseid, $searchnodeltiendpoint);
+        }
+
+        return $params;
+    }
+
+    /**
+     * generate LTI parameters to perform the LTI authentication.
+     *
+     * @param int $courseid id of the course.
+     * @param string $endpoint the lti endpoint.
+     * @return array lti parameters.
+     */
+    public static function generate_lti_params($courseid, $endpoint) {
         global $CFG, $USER;
 
         // Get the course object.
@@ -242,8 +271,6 @@ class opencast_manager
         $consumerkey = get_config('local_och5p', 'lticonsumerkey');
         $consumersecret = get_config('local_och5p', 'lticonsumersecret');
 
-        // Get the endpoint url of the default oc instance.
-        $endpoint = get_config('tool_opencast', 'apiurl');
 
         // Check if all requirements are correctly configured.
         if (empty($consumerkey) || empty($consumersecret) || empty($endpoint)) {

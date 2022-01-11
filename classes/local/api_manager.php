@@ -47,7 +47,7 @@ class api_manager extends \curl {
     /** @var int the curl timeout in seconds */
     private $timeout;
     /** @var string the api baseurl */
-    private $baseurl;
+    public $baseurl;
 
     /**
      * Constructor of the OCH5P API Manager.

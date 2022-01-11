@@ -68,10 +68,11 @@ if (empty($course) && $courseid) {
     $course = get_course($courseid);
 }
 
-if (is_null($coursecontext) || !has_capability('block/opencast:viewunpublishedvideos', $coursecontext)) {
-    print json_encode(['error' => get_string('no_view_error', 'local_och5p')]);
-    die;
-}
+// The view capability seems to be not necessary.
+// if (is_null($coursecontext) || !has_capability('block/opencast:viewunpublishedvideos', $coursecontext)) {
+//     print json_encode(['error' => get_string('no_view_error', 'local_och5p')]);
+//     die;
+// }
 
 header('Cache-Control: no-cache');
 header('Content-Type: application/json; charset=utf-8');
