@@ -13,14 +13,3 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
-    * Opencast H5P Mod renderers functions
-    * 
-    * @package    local_och5p
-    * @copyright  2020 Farbod Zamani Boroujeni, ELAN e.V.
-    * @author     Farbod Zamani Boroujeni <zamani@elan-ev.de>
-    * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-    */
-
-defined('MOODLE_INTERNAL') || die();

@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * 
+ * Plugin version and other meta-data are defined here.
+ *
  * @package    local_och5p
  * @copyright  2020 Farbod Zamani Boroujeni, ELAN e.V.
  * @author     Farbod Zamani Boroujeni <zamani@elan-ev.de>
@@ -25,8 +26,11 @@ defined('MOODLE_INTERNAL') || die;
 
 // Defining this plug-in metadata.
 $plugin->component = 'local_och5p';
-$plugin->release = '1.0.0';
-$plugin->version =  2020101211;
+$plugin->release = '2.1.0';
+$plugin->version =  2021112500;
 $plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2017111300;
-$plugin->dependencies = array('block_opencast' => 2020111300, 'mod_hvp' => 2020080400);
+$plugin->requires = 2019111800;
+$plugin->dependencies = array(
+    'mod_hvp' => 2021061100, // Since we are supporting Moodle 3.8 and above.
+    'block_opencast' => 2021052000 // Since we are supporting Moodle 3.8 and above.
+);

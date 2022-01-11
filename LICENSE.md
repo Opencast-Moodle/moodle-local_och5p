@@ -631,12 +631,6 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    The BlackBean LiveUsers <https://github.com/blackbean/moodle-local_och5p>
-    is a plugin for Moodle LMS Platform <https://www.moodle.org>, that monitors the
-    exact number of online users per course in realtime, even if they spend hours
-    watching a single video, for example, without ever refreshing a single page.
-    Copyright (C) BlackBean Technologies Ltda <https://www.blackbean.com.br>
-
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or

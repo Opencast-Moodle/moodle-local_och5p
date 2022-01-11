@@ -15,26 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local och5p uninstall process.
+ * Local och5p upgrade process.
  *
  * @package    local_och5p
- * @copyright  2020 Farbod Zamani Boroujeni, ELAN e.V.
+ * @copyright  2021 Farbod Zamani Boroujeni, ELAN e.V.
  * @author     Farbod Zamani Boroujeni <zamani@elan-ev.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
+
+defined('MOODLE_INTERNAL') || die();
 
 use local_och5p\local\theme_manager;
 
 /**
- * Call the functions and methods during uninstall.
+ * Execute och5p upgrade from the given old version
+ *
+ * @param int $oldversion
+ * @return bool
  */
-function xmldb_local_och5p_uninstall() {
+function xmldb_local_och5p_upgrade($oldversion) {
+    if ($oldversion < 2021111000) {
+        // Due to changing the renderers flags, we remove the codes and extensions of the old version.
+        theme_manager::cleaup_themes_extension();
 
-    $themes = core_component::get_plugin_list('theme');
-    if (count($themes) > 0) {
-        theme_manager::remove_themes_extension(array_keys($themes));
+        // Local och5p savepoint reached.
+        upgrade_plugin_savepoint(true, 2021111000, 'local', 'och5p');
     }
-
     return true;
 }
