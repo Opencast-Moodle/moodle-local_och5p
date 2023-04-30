@@ -26,11 +26,12 @@ defined('MOODLE_INTERNAL') || die;
 
 // Defining this plug-in metadata.
 $plugin->component = 'local_och5p';
-$plugin->release = '2.1.1-r1';
-$plugin->version =  2022011200;
+$plugin->release = '3.0-r1';
+$plugin->version =  2023042800;
 $plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2019111800;
+$plugin->requires = 2020061500; // Requires Moodle 3.9+.
 $plugin->dependencies = array(
-    'mod_hvp' => 2021061100, // Since we are supporting Moodle 3.8 and above.
-    'block_opencast' => 2021052000 // Since we are supporting Moodle 3.8 and above.
+    'mod_hvp' => 2022121200,
+    'block_opencast' => 2023030100,
+    'tool_opencast' => 2023030100
 );
