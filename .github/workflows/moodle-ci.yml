@@ -147,9 +147,9 @@ jobs:
       
       - name: Copy and extract mod hvp content
         run: |
-          mkdir extra-plugins && mkdir extra-plugins/moodle-mod_hvp
-          cp ./plugin/tests/fixtures/mod_hvp_moodle41_2022121200.zip ./extra-plugins/moodle-mod_hvp/moodle-mod_hvp.zip
-          cd ./extra-plugins/moodle-mod_hvp && unzip moodle-mod_hvp.zip && rm moodle-mod_hvp.zip
+          mkdir moodle-mod_hvp
+          cp ./plugin/tests/fixtures/mod_hvp_moodle41_2022121200.zip ./moodle-mod_hvp/moodle-mod_hvp.zip
+          cd ./moodle-mod_hvp && unzip moodle-mod_hvp.zip && rm moodle-mod_hvp.zip
 
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
@@ -180,7 +180,7 @@ jobs:
         run: |
           moodle-plugin-ci add-plugin --branch master Opencast-Moodle/moodle-tool_opencast
           moodle-plugin-ci add-plugin --branch master Opencast-Moodle/moodle-block_opencast
-          moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --extra-plugins ./extra-plugins
+          moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --extra-plugins ./moodle-mod_hvp
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
