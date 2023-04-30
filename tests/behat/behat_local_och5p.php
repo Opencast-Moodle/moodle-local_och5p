@@ -26,7 +26,7 @@
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
 use tool_opencast\seriesmapping;
-use \mod_hvp\framework;
+// use mod_hvp\framework;
 
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
@@ -76,7 +76,7 @@ class behat_local_och5p extends behat_base {
      * @Given /^I update the mod hvp content type cache$/
      */
     public function i_update_the_mod_hvp_content_type_cache() {
-        $core = framework::instance();
+        $core = \mod_hvp\framework::instance();
         $core->updateContentTypeCache();
     }
 
@@ -101,7 +101,7 @@ JS;
      * @Given /^I wait until h5p interactive video content is installed in och5p$/
      */
     public function i_wait_until_h5p_interactive_video_content_is_installed_in_och5p() {
-        $core = framework::instance();
+        $core = \mod_hvp\framework::instance();
         $libraries = $core->h5pF->loadLibraries();
         $isinstalled = false;
         do {
