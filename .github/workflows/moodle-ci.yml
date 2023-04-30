@@ -136,6 +136,8 @@ jobs:
             php: '8.0'
           - moodle-branch: 'MOODLE_310_STABLE'
             php: '8.0'
+          - moodle-branch: 'MOODLE_401_STABLE'
+            php: '7.3'
 
     steps:
       - name: Check out repository code
@@ -154,6 +156,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          ini-values: max_input_vars=5000
           coverage: none
 
       - name: npm cache
