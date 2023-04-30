@@ -143,12 +143,12 @@ jobs:
         with:
           path: plugin
 
-    - name: Get hvp stable and submodules
-      run: |
-        mkdir hvp
-        cd hvp
-        git clone -b stable https://github.com/h5p/moodle-mod_hvp.git ./
-        git submodule update --init
+      - name: Get hvp stable and submodules
+        run: |
+          mkdir hvp
+          cd hvp
+          git clone -b stable https://github.com/h5p/moodle-mod_hvp.git ./
+          git submodule update --init
 
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
