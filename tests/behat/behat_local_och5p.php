@@ -26,7 +26,6 @@
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
 use tool_opencast\seriesmapping;
-// use mod_hvp\framework;
 
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
