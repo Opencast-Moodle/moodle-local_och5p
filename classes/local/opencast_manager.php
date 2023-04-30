@@ -25,8 +25,9 @@
 
 namespace local_och5p\local;
 
+use tool_opencast\local\api;
 use block_opencast\local\apibridge;
-use local_och5p\local\api_manager;
+use \tool_opencast\local\settings_api;
 use oauth_helper;
 use moodle_exception;
 
@@ -43,8 +44,7 @@ require_once($CFG->dirroot . '/lib/oauthlib.php');
  * @author     Farbod Zamani Boroujeni <zamani@elan-ev.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class opencast_manager
-{
+class opencast_manager {
     /**
      * Get videos avaialble in the course.
      *
@@ -53,31 +53,12 @@ class opencast_manager
      * @return array the list of opencast course videos.
      */
     public static function get_course_videos($courseid) {
-        // Initialize the course videos array.
-        $coursevideos = null;
-
-        // Handle multi-series feature in block_opencast 2021091200 and above.
-        if (method_exists('block_opencast\local\apibridge', 'get_series_videos')) {
-            $coursevideos = self::get_opencast_series_videos($courseid);
-        } else {
-            // Get an instance of apibridge.
-            $apibridge = apibridge::get_instance();
-            $coursevideos = $apibridge->get_course_videos($courseid);
-        }
-
-        return $coursevideos;
-    }
-
-    /**
-     * Get videos avaialble in the course from the series with multi-series feature.
-     *
-     * @param int $courseid the id of the course.
-     *
-     * @return array the list of opencast course videos.
-     */
-    private static function get_opencast_series_videos($courseid) {
         // Get an instance of apibridge.
         $apibridge = apibridge::get_instance();
+
+        // Initialize the course videos object.
+        $coursevideos = new \stdClass();
+
         // Get series for the course.
         $courseseries = $apibridge->get_course_series($courseid);
         // Initialize the series videos array.
@@ -118,7 +99,7 @@ class opencast_manager
      * @return array the list of consumable opencast events tracks.
      */
     public static function get_episode_tracks($identifier) {
-        // Get och5p api instance for search service.
+        // Get tool_opencast api instance for search service.
         $api = self::get_opencast_search_service_api_instance();
 
         // Prepare the endpoint url.
@@ -185,14 +166,17 @@ class opencast_manager
         return $sortedvideos;
     }
 
+
     /**
-     * Get api_manager instance for search service.
+     * Get api instance from tool_opencast for search service.
+     * 
+     * @param boolean $returnbaseurl whether to return only the baseurl or the api object back
      *
-     * @return local_och5p\local\api_manager och5p api_manager instance.
+     * @return tool_opencast\local\api opencast api instance.
      */
     public static function get_opencast_search_service_api_instance($returnbaseurl = false) {
-        // Get api_manager instance.
-        $api = new api_manager();
+        // Get api instance from tool_opencast.
+        $api = api::get_instance();
 
         // Services endpoint initialization.
         $servicesurl = '/services/services.json';
@@ -214,19 +198,23 @@ class opencast_manager
 
         // Check if the search service is active and online to make calls.
         if (!empty($searchservice) && $searchservice['active'] && $searchservice['online']) {
+            $defaultocinstanceid = settings_api::get_default_ocinstance()->id;
             // Initialize the custom configs with the search service's host.
             $customconfigs = [
-                'apiurl' => preg_replace(["/\/docs/"], [''], $searchservice['host'])
+                'apiurl' => preg_replace(["/\/docs/"], [''], $searchservice['host']),
+                'apiusername' => settings_api::get_apiusername($defaultocinstanceid),
+                'apipassword' => settings_api::get_apipassword($defaultocinstanceid),
+                'apitimeout' => settings_api::get_apitimeout($defaultocinstanceid),
+                'apiconnecttimeout' => settings_api::get_apiconnecttimeout($defaultocinstanceid),
             ];
-            // Create the api_manager instance with search service's host url.
-            $api = new api_manager([], $customconfigs);
+            // Create the tool_opencast api instance with search service's host url.
+            $api = api::get_instance(null, [], $customconfigs);
         }
-
         // If only the baseurl is needed.
         if ($returnbaseurl) {
-            return $api->baseurl;
+            return preg_replace(["/\/docs/"], [''], $searchservice['host']);
         }
-        // Finally, we return the api_manager instance to make search calls.
+        // Finally, we return the tool_opencast api instance to make search calls.
         return $api;
     }
 
@@ -239,7 +227,8 @@ class opencast_manager
     public static function get_lti_params($courseid) {
         $params = [];
         // Get the endpoint url of the default oc instance.
-        $mainltiendpoint = get_config('tool_opencast', 'apiurl');
+        $defaultocinstanceid = settings_api::get_default_ocinstance()->id;
+        $mainltiendpoint = settings_api::get_apiurl($defaultocinstanceid);
         // Generate lti params for the main oc instance.
         $params['main'] = self::generate_lti_params($courseid, $mainltiendpoint);
         // Get the endpoint url of the search node instance.
@@ -270,7 +259,6 @@ class opencast_manager
         // Get configured consumerkey and consumersecret.
         $consumerkey = get_config('local_och5p', 'lticonsumerkey');
         $consumersecret = get_config('local_och5p', 'lticonsumersecret');
-
 
         // Check if all requirements are correctly configured.
         if (empty($consumerkey) || empty($consumersecret) || empty($endpoint)) {
