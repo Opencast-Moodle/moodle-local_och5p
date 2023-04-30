@@ -16,7 +16,7 @@
 
 /**
  * Local och5p installtion.
- *  
+ *
  * @package    local_och5p
  * @copyright  2021 Farbod Zamani Boroujeni, ELAN e.V.
  * @author     Farbod Zamani Boroujeni <zamani@elan-ev.de>

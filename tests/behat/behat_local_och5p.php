@@ -87,7 +87,7 @@ class behat_local_och5p extends behat_base {
      */
     public function i_scroll_to_in_och5p($elementselector) {
         $function = <<<JS
-(function(){document.querySelector("$elementselector").scrollIntoView();})() 
+(function(){document.querySelector("$elementselector").scrollIntoView();})()
 JS;
         try {
             $this->getSession()->executeScript($function);
@@ -105,7 +105,8 @@ JS;
         $libraries = $core->h5pF->loadLibraries();
         $isinstalled = false;
         do {
-            if (array_key_exists('H5P.InteractiveVideo', $libraries) && array_key_exists('H5PEditor.InteractiveVideo', $libraries)) {
+            if (array_key_exists('H5P.InteractiveVideo', $libraries) &&
+                array_key_exists('H5PEditor.InteractiveVideo', $libraries)) {
                 $isinstalled = true;
             } else {
                 // In order to prevent performance issues, we load libraries every 5 seconds.

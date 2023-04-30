@@ -71,7 +71,7 @@ if (empty($course) && $courseid) {
 header('Cache-Control: no-cache');
 header('Content-Type: application/json; charset=utf-8');
 
-//Validate token.
+// Validate token.
 try {
     $editorajaxinterface = new editor_ajax();
     if ($action != 'ltiParams' &&

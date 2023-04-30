@@ -169,7 +169,7 @@ class opencast_manager {
 
     /**
      * Get api instance from tool_opencast for search service.
-     * 
+     *
      * @param boolean $returnbaseurl whether to return only the baseurl or the api object back
      *
      * @return tool_opencast\local\api opencast api instance.
@@ -191,7 +191,7 @@ class opencast_manager {
 
         // Get the services array from the get call.
         $services = $result['services']['service'];
-        // Get the index of the search service. 
+        // Get the index of the search service.
         $searchserviceindex = array_search('/search', array_column($services, 'path'));
         // Extract the search service array, if exists.
         $searchservice = (isset($services[$searchserviceindex])) ? $services[$searchserviceindex] : null;
