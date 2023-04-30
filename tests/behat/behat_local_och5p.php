@@ -25,8 +25,6 @@
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
-use tool_opencast\seriesmapping;
-
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
 /**
@@ -62,7 +60,7 @@ class behat_local_och5p extends behat_base {
 
         // When we are using stable.opencast.org, the series Blender Foundation Productions with id: ID-blender-foundation,
         // is by default avaialble. Therefore, and as for make things simpler, we use this series in our course.
-        $mapping = new seriesmapping();
+        $mapping = new \tool_opencast\seriesmapping();
         $mapping->set('courseid', reset($courses)->id);
         $mapping->set('series', 'ID-blender-foundation');
         $mapping->set('isdefault', '1');
