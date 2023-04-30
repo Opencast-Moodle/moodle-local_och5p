@@ -185,7 +185,7 @@ jobs:
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --no-init
           cd ./moodle/mod/hvp
           git submodule update --init
-          cd ../.. && composer update && php php admin/tool/behat/cli/init.php
+          cd ../.. && composer update && php admin/tool/behat/cli/init.php
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
