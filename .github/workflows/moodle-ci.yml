@@ -143,6 +143,13 @@ jobs:
         with:
           path: plugin
 
+    - name: Get hvp stable and submodules
+        run: |
+          mkdir hvp
+          cd hvp
+          git clone -b stable https://github.com/h5p/moodle-mod_hvp.git ./
+          git submodule update --init
+
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
@@ -167,15 +174,17 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
+      # moodle-plugin-ci add-plugin --branch stable h5p/moodle-mod_hvp
       - name: Install moodle-plugin-ci
         run: |
           moodle-plugin-ci add-plugin --branch master Opencast-Moodle/moodle-tool_opencast
           moodle-plugin-ci add-plugin --branch master Opencast-Moodle/moodle-block_opencast
-          moodle-plugin-ci add-plugin --branch 1.23 h5p/moodle-mod_hvp
+          moodle-plugin-ci install --plugin ./hvp --db-host=127.0.0.1
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+          CODECHECKER_IGNORE_PATHS: 'mod/hvp'
 
       - name: Behat features
         if: ${{ always() }}

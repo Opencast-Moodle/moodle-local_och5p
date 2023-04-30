@@ -25,7 +25,7 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     And I setup the opencast video block for the course with och5p
     And I update the mod hvp content type cache
     And I run the scheduled task "\mod_hvp\task\look_for_updates"
-    And I navigate to "Plugins > Local plugins > External tool > H5P Opencast Extension" in site administration
+    And I navigate to "Plugins > Local plugins > H5P Opencast Extension" in site administration
     Then I should see "Boost"
     And I set the following fields to these values:
       | Available themes to extend  | Boost           |
