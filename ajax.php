@@ -68,12 +68,6 @@ if (empty($course) && $courseid) {
     $course = get_course($courseid);
 }
 
-// The view capability seems to be not necessary.
-// if (is_null($coursecontext) || !has_capability('block/opencast:viewunpublishedvideos', $coursecontext)) {
-//     print json_encode(['error' => get_string('no_view_error', 'local_och5p')]);
-//     die;
-// }
-
 header('Cache-Control: no-cache');
 header('Content-Type: application/json; charset=utf-8');
 
@@ -118,6 +112,13 @@ switch ($action) {
     case 'ltiParams':
         try {
             $data['result'] = opencast_manager::get_lti_params($course->id);
+        } catch (moodle_exception $e) {
+            $data['error'] = $e->getMessage();
+        }
+        break;
+    case 'loadStrings':
+        try {
+            $data['result'] = video_manager::get_ui_strings();
         } catch (moodle_exception $e) {
             $data['error'] = $e->getMessage();
         }

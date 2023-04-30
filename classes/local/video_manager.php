@@ -28,8 +28,6 @@ namespace local_och5p\local;
 use local_och5p\local\opencast_manager;
 use moodle_exception;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Video Manager class contains all related functions to extract and manage opencast course videos.
  *
@@ -38,8 +36,7 @@ defined('MOODLE_INTERNAL') || die();
  * @author     Farbod Zamani Boroujeni <zamani@elan-ev.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class video_manager
-{
+class video_manager {
     /**
      * Get opencast course videos and prepare it to show in dropdown with option tag.
      *
@@ -143,5 +140,20 @@ class video_manager
 
         // Finally, we return the options array.
         return $options;
+    }
+
+    /**
+     * Get all the label texts needed to display to the user.
+     *
+     * @return array
+     */
+    public static function get_ui_strings() {
+        $texts = [
+            'label_course' => get_string('label_course', 'local_och5p'),
+            'label_video_file' => get_string('label_video_file', 'local_och5p'),
+            'label_video_flavor' => get_string('label_video_flavor', 'local_och5p'),
+            'header_text' => get_string('header_text', 'local_och5p'),
+        ];
+        return $texts;
     }
 }
