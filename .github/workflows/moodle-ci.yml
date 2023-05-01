@@ -144,12 +144,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: plugin
-      
-      - name: Copy and extract mod hvp content
-        run: |
-          mkdir moodle-mod_hvp
-          cp ./plugin/tests/fixtures/mod_hvp_moodle41_2022121200.zip ./moodle-mod_hvp/moodle-mod_hvp.zip
-          cd ./moodle-mod_hvp && unzip moodle-mod_hvp.zip && rm moodle-mod_hvp.zip
 
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
@@ -176,11 +170,15 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
+      # Release_v4.0 branch of Moodle Opencast plugins is required.
+      # stable branch of Moodle hvp mod is required.
       - name: Install moodle-plugin-ci
         run: |
-          moodle-plugin-ci add-plugin --branch master Opencast-Moodle/moodle-tool_opencast
-          moodle-plugin-ci add-plugin --branch master Opencast-Moodle/moodle-block_opencast
-          moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --extra-plugins ./moodle-mod_hvp
+          moodle-plugin-ci add-plugin --branch Release_v4.0 Opencast-Moodle/moodle-tool_opencast
+          moodle-plugin-ci add-plugin --branch Release_v4.0 Opencast-Moodle/moodle-block_opencast
+          moodle-plugin-ci add-plugin --branch stable h5p/moodle-mod_hvp
+          cd moodle-plugin-ci-plugins/moodle-mod_hvp && git submodule update --init && cd ../..
+          moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
