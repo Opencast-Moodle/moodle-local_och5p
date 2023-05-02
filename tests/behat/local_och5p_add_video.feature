@@ -91,8 +91,8 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     And I switch to the main frame
     When I click on "Save and display" "button"
     And I wait until the page is ready
-    # A 5 seconds wait is needed here.
-    And I wait "5" seconds
+    # A 10 seconds wait is needed here.
+    And I wait "10" seconds
     Then I should see "Test Opencast Video Edited"
     And I switch to "h5p-iframe" class iframe
     And I should see "Interactive Video"
