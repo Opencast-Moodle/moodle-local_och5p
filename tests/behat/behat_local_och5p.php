@@ -99,7 +99,7 @@ JS;
      */
     public function i_wait_until_h5p_interactive_video_content_is_installed_in_och5p() {
         // To avoid wating too long.
-        $maxtry = 72; // It will reject after 6 minutes if interval is 5 seconds.
+        $maxtry = 144; // It will reject after 12 minutes if interval is 5 seconds.
         // In order to prevent performance issues, we load libraries every 5 seconds.
         $intervalseconds = 5;
         $core = \mod_hvp\framework::instance();
