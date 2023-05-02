@@ -98,17 +98,24 @@ JS;
      * @Given /^I wait until h5p interactive video content is installed in och5p$/
      */
     public function i_wait_until_h5p_interactive_video_content_is_installed_in_och5p() {
+        // To avoid wating too long.
+        $maxtry = 72; // It will reject after 6 minutes if interval is 5 seconds.
+        // In order to prevent performance issues, we load libraries every 5 seconds.
+        $intervalseconds = 5;
         $core = \mod_hvp\framework::instance();
         $libraries = $core->h5pF->loadLibraries();
         $isinstalled = false;
+        $trycount = 0;
         do {
             if (array_key_exists('H5P.InteractiveVideo', $libraries) &&
                 array_key_exists('H5PEditor.InteractiveVideo', $libraries)) {
                 $isinstalled = true;
-            } else {
-                // In order to prevent performance issues, we load libraries every 5 seconds.
-                sleep(5);
+            } else if ($trycount < $maxtry) {
+                sleep($intervalseconds);
                 $libraries = $core->h5pF->loadLibraries();
+                $trycount++;
+            } else {
+                break;
             }
         } while (!$isinstalled);
         // Here we wait one more seconds to let other dependencies be installed.
