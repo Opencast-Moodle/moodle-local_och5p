@@ -78,6 +78,8 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     And I scroll to "iframe.h5p-editor-iframe" in och5p
     And I switch to "h5p-editor-iframe" class iframe
     And I set the field "Title" to "Test Opencast Video Edited"
+    # A 2 seconds wait is needed here.
+    And I wait "2" seconds
     And I scroll to ".h5p-av-row .h5p-remove" in och5p
     When I click on ".h5p-av-row .h5p-remove" "css_element"
     And I should see "Remove file"
