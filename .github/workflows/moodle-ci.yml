@@ -179,7 +179,7 @@ jobs:
           moodle-plugin-ci add-plugin --branch stable h5p/moodle-mod_hvp
           cd moodle-plugin-ci-plugins/moodle-mod_hvp && git submodule update --init && cd ../..
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
-          moodle-plugin-ci add-config '$CFG->bahat_increasetimeout = 3;''
+          moodle-plugin-ci add-config '$CFG->bahat_increasetimeout = 3;'
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
