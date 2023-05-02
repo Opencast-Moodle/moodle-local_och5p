@@ -31,7 +31,7 @@ $plugin->version = 2023042800;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2020061500; // Requires Moodle 3.9+.
 $plugin->dependencies = array(
-    'mod_hvp' => 2022121200,
+    'mod_hvp' => 2022012000, // This version seems to work with behat testing, so we set it here.
     'block_opencast' => 2023030100,
     'tool_opencast' => 2023030100
 );
