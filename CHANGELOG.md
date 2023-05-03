@@ -20,6 +20,5 @@
 - Behat testing is also included
 - Compatibility for Moodle v4.0 and Moodle Opencast Plugins v4.0-r1
 - Added support for privacy policy (null)
-- New settings to add engage url
 - Improved UI/UX by adding clearer labels for the dropdowns
 - Remove support for Moodle 3.8
