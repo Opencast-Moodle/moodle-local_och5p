@@ -128,12 +128,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.3', '7.4'] # php 8.0 is not compatible with hvp 1.22.4
-        moodle-branch: ['MOODLE_39_STABLE', 'MOODLE_310_STABLE', 'MOODLE_311_STABLE', 'MOODLE_400_STABLE', 'MOODLE_401_STABLE']
+        php: ['7.4'] # php 8.0 is not compatible with hvp 1.22.4
+        moodle-branch: ['MOODLE_39_STABLE', 'MOODLE_401_STABLE']
         database: ['mariadb', 'pgsql']
-        exclude:
-          - moodle-branch: 'MOODLE_401_STABLE'
-            php: '7.3'
+        include:
+          - moodle-branch: 'MOODLE_310_STABLE'
+            database: 'pgsql'
+          - moodle-branch: 'MOODLE_311_STABLE'
+            database: 'pgsql'
+          - moodle-branch: 'MOODLE_400_STABLE'
+            database: 'pgsql'
 
     steps:
       - name: Check out repository code
