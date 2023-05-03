@@ -134,10 +134,13 @@ jobs:
         include:
           - moodle-branch: 'MOODLE_310_STABLE'
             database: 'pgsql'
+            php: '7.4'
           - moodle-branch: 'MOODLE_311_STABLE'
             database: 'pgsql'
+            php: '7.4'
           - moodle-branch: 'MOODLE_400_STABLE'
             database: 'pgsql'
+            php: '7.4'
 
     steps:
       - name: Check out repository code
@@ -151,14 +154,6 @@ jobs:
           php-version: ${{ matrix.php }}
           ini-values: max_input_vars=5000
           coverage: none
-
-      - name: npm cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-${{ matrix.php }}-${{ matrix.moodle-branch }}-${{ matrix.database }}-cache
-          restore-keys: |
-            node-${{ matrix.php }}-${{ matrix.moodle-branch }}-${{ matrix.database }}-cache
 
       - name: Initialise moodle-plugin-ci
         run: composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
