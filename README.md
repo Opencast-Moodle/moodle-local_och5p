@@ -20,7 +20,7 @@ System requirements
  
 Opencast configuration for multiple nodes setups:
 ------------------
-If you use a constellation of opencast nodes, one for admin and another for presentation (i.e. engage node) it is <b>important</b> that your moodle user account in opentcast has the role that makes the services endpoint available. It is by default (and based on experience) included the  "ROLE_GROUP_MH_DEFAULT_ORG_SYSTEM_ADMINS" role.
+If you use a constellation of opencast nodes, one for admin and another for presentation (i.e. engage node) it is <b>important</b> that your moodle user account in opentcast has the role that makes the services endpoint available. It is by default (and based on experience) included in the "ROLE_GROUP_MH_DEFAULT_ORG_SYSTEM_ADMINS" role.
 
 Prerequisites
 ------------------
