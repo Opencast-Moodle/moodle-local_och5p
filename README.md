@@ -17,6 +17,10 @@ System requirements
       - <a href="https://moodle.org/plugins/mod_hvp">mod_hvp</a> (Min. version: <a href="https://moodle.org/plugins/mod_hvp/1.22.4/25878">Interactive Content – H5P 1.22.4</a>)
       - <a href="https://github.com/Opencast-Moodle/moodle-tool_opencast">tool_opencast</a> (Min. version: <a href="https://github.com/Opencast-Moodle/moodle-tool_opencast/releases/tag/v4.0-r1">v4.0-r1</a>)
       - <a href="https://github.com/Opencast-Moodle/moodle-block_opencast">block_opencast</a> (Min. version: <a href="https://github.com/Opencast-Moodle/moodle-block_opencast/releases/tag/v4.0-r1">v4.0-r1</a>)
+ 
+Opencast configuration for multiple nodes setups:
+------------------
+If you use a constellation of opencast nodes, one for admin and another for presentation (i.e. engage node) it is <b>important</b> that your moodle user account in opentcast has the role that makes the services endpoint available. It is by default (and based on experience) included the  "ROLE_GROUP_MH_DEFAULT_ORG_SYSTEM_ADMINS" role.
 
 Prerequisites
 ------------------
