@@ -114,8 +114,8 @@ class opencast_manager {
         }
 
         // Extract the tracks from mediapackage.
-        $tracks = (isset($searchresult['search-results']['result']) ?
-            $searchresult['search-results']['result']['mediapackage']['media']['track'] :
+        $tracks = (isset($searchresult['result']) ?
+            $searchresult['result'][0]['mediapackage']['media']['track'] :
             null);
 
         // If tracks does not exists, we return moodle_exception.
