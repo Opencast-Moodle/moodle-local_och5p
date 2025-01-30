@@ -26,8 +26,6 @@
 use local_och5p\local\video_manager;
 use local_och5p\local\opencast_manager;
 use mod_hvp\editor_ajax;
-use moodle_exception;
-use context_course;
 
 define('AJAX_SCRIPT', true);
 require(__DIR__ . '/../../config.php');
@@ -61,7 +59,7 @@ if (!$courseid && $contentid) {
 }
 
 if (empty($coursecontext) && $courseid) {
-    $coursecontext = context_course::instance($courseid);
+    $coursecontext = \context_course::instance($courseid);
 }
 
 if (empty($course) && $courseid) {
@@ -79,7 +77,7 @@ try {
         print json_encode(['error' => get_string('invalidtoken_error', 'local_och5p')]);
         die;
     }
-} catch (moodle_exception $e ) {
+} catch (\moodle_exception $e ) {
     print json_encode(['error' => $e->getMessage()]);
     die;
 }
@@ -90,7 +88,7 @@ switch ($action) {
     case 'courseVideos':
         try {
             $data['result'] = video_manager::prepare_course_videos($course->id);
-        } catch (moodle_exception $e) {
+        } catch (\moodle_exception $e) {
             $data['error'] = $e->getMessage();
         }
         break;
@@ -98,28 +96,28 @@ switch ($action) {
         try {
             $identifier = required_param('identifier', PARAM_TEXT);
             $data['result'] = video_manager::get_video_flavors_with_qualities($identifier);
-        } catch (moodle_exception $e) {
+        } catch (\moodle_exception $e) {
             $data['error'] = $e->getMessage();
         }
         break;
     case 'courseList':
         try {
             $data['result'] = video_manager::get_course_lists();
-        } catch (moodle_exception $e) {
+        } catch (\moodle_exception $e) {
             $data['error'] = $e->getMessage();
         }
         break;
     case 'ltiParams':
         try {
             $data['result'] = opencast_manager::get_lti_params($course->id);
-        } catch (moodle_exception $e) {
+        } catch (\moodle_exception $e) {
             $data['error'] = $e->getMessage();
         }
         break;
     case 'loadStrings':
         try {
             $data['result'] = video_manager::get_ui_strings();
-        } catch (moodle_exception $e) {
+        } catch (\moodle_exception $e) {
             $data['error'] = $e->getMessage();
         }
         break;
