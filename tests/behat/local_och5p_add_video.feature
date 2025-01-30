@@ -19,8 +19,9 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
       | apipassword_1       | opencast                                                      | tool_opencast   |
       | ocinstances         | [{"id":1,"name":"Default","isvisible":true,"isdefault":true}] | tool_opencast   |
       | hub_is_enabled      | 1                                                             | mod_hvp         |
-      | lticonsumerkey      | CONSUMERKEY                                                   | local_och5p     |
-      | lticonsumersecret   | CONSUMERSECRET                                                | local_och5p     |
+      | lticonsumerkey_1    | CONSUMERKEY                                                   | tool_opencast   |
+      | lticonsumersecret_1 | CONSUMERSECRET                                                | tool_opencast   |
+      | uselti              | 1                                                             | local_och5p     |
     And I log in as "admin"
     And I setup the opencast video block for the course with och5p
     And I update the mod hvp content type cache

@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 // Defining this plug-in metadata.
 $plugin->component = 'local_och5p';
 $plugin->release = '3.0-r1';
-$plugin->version = 2023042800;
+$plugin->version = 2023042801;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2020061500; // Requires Moodle 3.9+.
 $plugin->dependencies = [

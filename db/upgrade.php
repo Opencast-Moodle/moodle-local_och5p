@@ -24,6 +24,7 @@
  */
 
 use local_och5p\local\theme_manager;
+use local_och5p\local\opencast_manager;
 
 /**
  * Execute och5p upgrade from the given old version
@@ -39,5 +40,22 @@ function xmldb_local_och5p_upgrade($oldversion) {
         // Local och5p savepoint reached.
         upgrade_plugin_savepoint(true, 2021111000, 'local', 'och5p');
     }
+
+    if ($oldversion < 2023042801) {
+
+        // Remove old LTI configurations of the plugin and bring the tool_opencast LTI configuration in the game.
+        $hasconfiguredlti = opencast_manager::is_lti_credentials_configured();
+
+        // Set the uselti configuration to use the LTI configuration from tool_opencast.
+        set_config('uselti', $hasconfiguredlti, 'local_och5p');
+
+        // Remove the old LTI configurations.
+        unset_config('lticonsumerkey', 'local_och5p');
+        unset_config('lticonsumersecret', 'local_och5p');
+
+        // Local och5p savepoint reached.
+        upgrade_plugin_savepoint(true, 2023042801, 'local', 'och5p');
+    }
+
     return true;
 }
