@@ -55,7 +55,7 @@ if ($id) {
 
 if (!$courseid && $contentid) {
     global $DB;
-    $hvp = $DB->get_record('hvp', array('id' => $contentid));
+    $hvp = $DB->get_record('hvp', ['id' => $contentid]);
     $courseid = $hvp->course;
     $course = get_course($courseid);
 }
@@ -84,7 +84,7 @@ try {
     die;
 }
 
-$data = array();
+$data = [];
 
 switch ($action) {
     case 'courseVideos':
