@@ -35,7 +35,7 @@ function local_och5p_extend_themes() {
     $config = get_config('local_och5p', 'extended_themes');
     $selectedthemes = !empty($config) ? explode(',', $config) : [];
 
-    $installedthemes = core_component::get_plugin_list('theme');
+    $installedthemes = \core\component::get_plugin_list('theme');
 
     $unselectedthemes = array_diff(array_keys($installedthemes), $selectedthemes);
 
