@@ -22,3 +22,12 @@
 - Added support for privacy policy (null)
 - Improved UI/UX by adding clearer labels for the dropdowns
 - Remove support for Moodle 3.8
+
+### v4.5-r1
+- new moodle coding styles! e.g. array() to [], lang sorting, etc.
+- core namespace changes: core_component to \core\component
+- use LTI credentials from Opencast API tool plugin!
+- Use the opencast API library instead of pure curl calls if necessary!
+- Support for OC 16 more in the area of either eliminating the use of search endpoint or making it (backward) compatible.
+- Upgrade behat test!
+- Update GH moodle ci workflows!
