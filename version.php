@@ -31,7 +31,7 @@ $plugin->requires = 2024100700; // Requires Moodle 4.5+.
 $plugin->supported = [405, 405];
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
-    'mod_hvp' => 2024120900,
+    'mod_hvp' => 2024112100,
     'block_opencast' => 2024111102,
     'tool_opencast' => 2024111102,
 ];
