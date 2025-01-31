@@ -168,7 +168,9 @@ class opencast_manager {
                         $quality = str_replace('-quality', '', $tag);
                     }
                 }
-            } else if (isset($videotrack['video']) && isset($videotrack['video']['resolution'])) {
+            }
+
+            if (empty($quality) && isset($videotrack['video']) && isset($videotrack['video']['resolution'])) {
                 $quality = $videotrack['video']['resolution'];
             }
 
