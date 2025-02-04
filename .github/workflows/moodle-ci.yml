@@ -157,11 +157,12 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
+      # As an temporary fix for the behat test issues, we are going to use the mod-hvp from ferishili/moodle-mod_hvp branch issue-578
       - name: Install moodle-plugin-ci
         run: |
           moodle-plugin-ci add-plugin --branch main Opencast-Moodle/moodle-tool_opencast
           moodle-plugin-ci add-plugin --branch main Opencast-Moodle/moodle-block_opencast
-          moodle-plugin-ci add-plugin --branch 1.27.1 h5p/moodle-mod_hvp
+          moodle-plugin-ci add-plugin --branch issue-578 ferishili/moodle-mod_hvp
           cd moodle-plugin-ci-plugins/moodle-mod_hvp && git submodule update --init && cd ../..
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
           moodle-plugin-ci add-config '$CFG->bahat_increasetimeout = 2;'
