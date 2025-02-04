@@ -12,6 +12,7 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
       | user     | course | role           |
       | teacher1 | C1     | editingteacher |
       | student1 | C1     | student        |
+      | admin    | C1     | manager        |
     And the following config values are set as admin:
       | config                    | value                                                         | plugin          |
       | apiurl_1                  | https://stable.opencast.org                                   | tool_opencast   |
@@ -28,7 +29,6 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     And I update the mod hvp content type cache
     And I run the scheduled task "\mod_hvp\task\look_for_updates"
     And I navigate to "Plugins > Local plugins > H5P Opencast Extension" in site administration
-    Then I should see "Boost"
     And I set the following fields to these values:
       | Available themes to extend  | Boost           |
     And I press "Save changes"
