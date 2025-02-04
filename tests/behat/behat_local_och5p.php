@@ -56,7 +56,7 @@ class behat_local_och5p extends behat_base {
      * @Given /^I setup the opencast video block for the course with och5p$/
      */
     public function i_setup_the_opencast_video_block_for_the_course_with_och5p() {
-        $courses = core_course_category::search_courses(array('search' => 'Course 1'));
+        $courses = core_course_category::search_courses(['search' => 'Course 1']);
 
         // When we are using stable.opencast.org, the series Blender Foundation Productions with id: ID-blender-foundation,
         // is by default avaialble. Therefore, and as for make things simpler, we use this series in our course.

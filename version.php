@@ -24,14 +24,14 @@
  */
 defined('MOODLE_INTERNAL') || die;
 
-// Defining this plug-in metadata.
 $plugin->component = 'local_och5p';
-$plugin->release = '3.0-r1';
-$plugin->version = 2023042800;
+$plugin->release = '4.5-r1';
+$plugin->version = 2025013100;
+$plugin->requires = 2024100700; // Requires Moodle 4.5+.
+$plugin->supported = [405, 405];
 $plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2020061500; // Requires Moodle 3.9+.
-$plugin->dependencies = array(
-    'mod_hvp' => 2022012000, // This version seems to work with behat testing, so we set it here.
-    'block_opencast' => 2023030100,
-    'tool_opencast' => 2023030100
-);
+$plugin->dependencies = [
+    'mod_hvp' => 2024112100,
+    'block_opencast' => 2024111102,
+    'tool_opencast' => 2024111102,
+];

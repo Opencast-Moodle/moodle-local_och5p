@@ -12,21 +12,25 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
       | user     | course | role           |
       | teacher1 | C1     | editingteacher |
       | student1 | C1     | student        |
+      | admin    | C1     | manager        |
     And the following config values are set as admin:
-      | config              | value                                                         | plugin          |
-      | apiurl_1            | https://stable.opencast.org                                   | tool_opencast   |
-      | apiusername_1       | admin                                                         | tool_opencast   |
-      | apipassword_1       | opencast                                                      | tool_opencast   |
-      | ocinstances         | [{"id":1,"name":"Default","isvisible":true,"isdefault":true}] | tool_opencast   |
-      | hub_is_enabled      | 1                                                             | mod_hvp         |
-      | lticonsumerkey      | CONSUMERKEY                                                   | local_och5p     |
-      | lticonsumersecret   | CONSUMERSECRET                                                | local_och5p     |
+      | config                    | value                                                         | plugin          |
+      ### NOTE: As we want to perform LTI and it is only possible when the opencast server has this PR: https://github.com/elan-ev/opencast_nginx/pull/5 patched (Partitioned Cookies),
+      ### therefore we use develop.opencast.org for now, which it is the only one that has this available at the time of this upgrade!
+      | apiurl_1                  | https://develop.opencast.org                                  | tool_opencast   |
+      | apiusername_1             | admin                                                         | tool_opencast   |
+      | apipassword_1             | opencast                                                      | tool_opencast   |
+      | ocinstances               | [{"id":1,"name":"Default","isvisible":true,"isdefault":true}] | tool_opencast   |
+      | hub_is_enabled            | 1                                                             | mod_hvp         |
+      | send_usage_statistics     | 1                                                             | mod_hvp         |
+      | lticonsumerkey_1          | CONSUMERKEY                                                   | tool_opencast   |
+      | lticonsumersecret_1       | CONSUMERSECRET                                                | tool_opencast   |
+      | uselti                    | 1                                                             | local_och5p     |
     And I log in as "admin"
     And I setup the opencast video block for the course with och5p
     And I update the mod hvp content type cache
     And I run the scheduled task "\mod_hvp\task\look_for_updates"
     And I navigate to "Plugins > Local plugins > H5P Opencast Extension" in site administration
-    Then I should see "Boost"
     And I set the following fields to these values:
       | Available themes to extend  | Boost           |
     And I press "Save changes"
@@ -42,7 +46,7 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     And I change window size to "1366x968"
     And I am on "Course 1" course homepage with editing mode on
     And I add the "Opencast Videos" block
-    And I add a "Interactive Content" to section "1"
+    And I add a "Interactive Content" to section "1" using the activity chooser
     And I wait until the page is ready
     And I scroll to "iframe.h5p-editor-iframe" in och5p
     And I switch to "h5p-editor-iframe" class iframe
