@@ -15,9 +15,7 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
       | admin    | C1     | manager        |
     And the following config values are set as admin:
       | config                    | value                                                         | plugin          |
-      ### NOTE: As we want to perform LTI and it is only possible when the opencast server has this PR: https://github.com/elan-ev/opencast_nginx/pull/5 patched (Partitioned Cookies),
-      ### therefore we use develop.opencast.org for now, which it is the only one that has this available at the time of this upgrade!
-      | apiurl_1                  | https://develop.opencast.org                                  | tool_opencast   |
+      | apiurl_1                  | https://stable.opencast.org                                  | tool_opencast   |
       | apiusername_1             | admin                                                         | tool_opencast   |
       | apipassword_1             | opencast                                                      | tool_opencast   |
       | ocinstances               | [{"id":1,"name":"Default","isvisible":true,"isdefault":true}] | tool_opencast   |
