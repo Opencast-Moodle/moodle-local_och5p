@@ -49,6 +49,7 @@ $string['setting_extended_themes_desc'] = 'Select the themes that should be exte
 $string['setting_extended_themes_header'] = 'Themes';
 $string['setting_extended_themes_noavailable'] = 'No themes available to extend.';
 $string['setting_extended_themes_selfextended'] = 'The following themes already contain the Opencast extension by themselves and can be used directly: <ul><li>{$a}</li></ul>';
+$string['setting_extended_themes_selfextended_label'] = 'Self-extended themes';
 $string['setting_lti_header'] = 'LTI Configuration';
 $string['setting_lti_header_desc'] = 'When "Securing Static Files" in Opencast configuration is enabled, it is necessary to use LTI authentication.';
 $string['setting_uselti'] = 'Enable LTI authentication';

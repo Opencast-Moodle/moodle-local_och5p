@@ -56,10 +56,16 @@ if ($hassiteconfig) {
     }
 
     if (!empty($selfextendedthemes)) {
-        \core\notification::add(
+        $selfextendedthemesinfo = \html_writer::div(
             get_string('setting_extended_themes_selfextended', 'local_och5p', implode('</li><li>', $selfextendedthemes)),
-            \core\notification::INFO
+            'box py-3 generalbox alert alert-info'
         );
+        $infodescsetting = new admin_setting_description(
+            'local_och5p/self_extended_themes',
+            get_string('setting_extended_themes_selfextended_label', 'local_och5p'),
+            $selfextendedthemesinfo
+        );
+        $settings->add($infodescsetting);
     }
 
     $extendedthemessetting = new admin_setting_configempty('local_och5p/extended_themes',
