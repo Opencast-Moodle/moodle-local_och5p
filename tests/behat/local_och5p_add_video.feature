@@ -65,6 +65,7 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     When I click on ".h5p-add-file[title='Add file']" "css_element"
     Then I should see "Opencast Videos"
     And I set the field "Select a video file" to "Spring"
+    And I wait "1" seconds
     And I set the field "Select the video's flavor and quality" to "Presentation (mp4)"
     And I switch to the main frame
     When I click on "Save and display" "button"
@@ -89,6 +90,7 @@ Feature: Add Opencast Video into H5P Activity Module via hvp plugin
     When I click on ".h5p-add-file[title='Add file']" "css_element"
     Then I should see "Opencast Videos"
     And I set the field "Select a video file" to "Spring"
+    And I wait "1" seconds
     And I set the field "Select the video's flavor and quality" to "Presentation (mp4)"
     And I switch to the main frame
     When I click on "Save and display" "button"
