@@ -24,6 +24,7 @@
  */
 
 use local_och5p\local\opencast_manager;
+use local_och5p\local\theme_manager;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -42,20 +43,39 @@ if ($hassiteconfig) {
         ''));
 
     $availablethemes = [];
+    $selfextendedthemes = [];
 
     foreach (\core\component::get_plugin_list('theme') as $name => $dir) {
-        $availablethemes[$name] = ucfirst(str_replace('_', ' ', $name));
+        $humanreadablename = ucfirst(str_replace('_', ' ', $name));
+        if (theme_manager::is_self_extended_theme($name, $dir)) {
+            // Skip self-extended themes.
+            $selfextendedthemes[] = $humanreadablename;
+            continue;
+        }
+        $availablethemes[$name] = $humanreadablename;
     }
 
-    $extendedthemessetting = new admin_setting_configmultiselect(
-        'local_och5p/extended_themes',
-        get_string('setting_extended_themes', 'local_och5p'),
-        get_string('setting_extended_themes_desc', 'local_och5p'),
-        [],
-        $availablethemes
-    );
+    if (!empty($selfextendedthemes)) {
+        \core\notification::add(
+            get_string('setting_extended_themes_selfextended', 'local_och5p', implode('</li><li>', $selfextendedthemes)),
+            \core\notification::INFO
+        );
+    }
 
-    $extendedthemessetting->set_updatedcallback('local_och5p_extend_themes');
+    $extendedthemessetting = new admin_setting_configempty('local_och5p/extended_themes',
+                get_string('setting_extended_themes', 'local_och5p'),
+                get_string('setting_extended_themes_noavailable', 'local_och5p'));
+    if (!empty($availablethemes)) {
+        $extendedthemessetting = new admin_setting_configmultiselect(
+            'local_och5p/extended_themes',
+            get_string('setting_extended_themes', 'local_och5p'),
+            get_string('setting_extended_themes_desc', 'local_och5p'),
+            [],
+            $availablethemes
+        );
+
+        $extendedthemessetting->set_updatedcallback('local_och5p_extend_themes');
+    }
     $settings->add($extendedthemessetting);
 
     // LTI Module Section.
