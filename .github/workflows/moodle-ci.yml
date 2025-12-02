@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.3']
-        moodle-branch: ['MOODLE_405_STABLE']
+        moodle-branch: ['MOODLE_500_STABLE']
         database: [pgsql]
 
     steps:
@@ -109,7 +109,7 @@ jobs:
     name: test (${{ matrix.moodle-branch }}/${{ matrix.php }}/${{ matrix.database }})
     services:
       postgres:
-        image: postgres:14
+        image: postgres:16
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -131,7 +131,7 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.3']
-        moodle-branch: ['MOODLE_405_STABLE']
+        moodle-branch: ['MOODLE_500_STABLE']
         database: ['mariadb', 'pgsql']
 
     steps:

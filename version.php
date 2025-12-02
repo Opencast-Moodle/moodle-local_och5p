@@ -25,13 +25,13 @@
 defined('MOODLE_INTERNAL') || die;
 
 $plugin->component = 'local_och5p';
-$plugin->release = '4.5-r2';
-$plugin->version = 2025013101;
-$plugin->requires = 2024100700; // Requires Moodle 4.5+.
-$plugin->supported = [405, 405];
+$plugin->release = '5.0-r1';
+$plugin->version = 2025120200;
+$plugin->requires = 2025041400; // Requires Moodle 5.0+.
+$plugin->supported = [500, 500];
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
     'mod_hvp' => 2024112100,
-    'block_opencast' => 2024111102,
-    'tool_opencast' => 2024111102,
+    'block_opencast' => 2025080102,
+    'tool_opencast' => 2025080103,
 ];

@@ -35,3 +35,6 @@
 
 ### v4.5-r2
 - Add self-extended theme handling (#20)
+
+### v5.0-r1
+- Moodle 5.0+ compatible version
