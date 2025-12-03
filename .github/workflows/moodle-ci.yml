@@ -15,4 +15,5 @@ jobs:
       requires-hvp-plugin: true
       branch-tool-plugin: main
       branch-block-plugin: main
+      branch-hvp-plugin: stable
       branch-opencast-docker-default: 17.1
