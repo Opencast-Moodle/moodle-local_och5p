@@ -13,7 +13,7 @@ jobs:
       requires-tool-plugin: true
       requires-block-plugin: true
       requires-hvp-plugin: true
-      branch-tool-plugin: main
-      branch-block-plugin: main
+      branch-tool-plugin: MOODLE_405_STABLE
+      branch-block-plugin: MOODLE_405_STABLE
       branch-hvp-plugin: stable
       branch-opencast-docker-default: 17.1
