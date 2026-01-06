@@ -42,7 +42,7 @@ $course = null;
 $coursecontext = null;
 
 if ($contextid) {
-    list($coursecontext, $course, $cm) = get_context_info_array($contextid);
+    [$coursecontext, $course, $cm] = get_context_info_array($contextid);
 }
 
 if ($id) {
@@ -72,12 +72,14 @@ header('Content-Type: application/json; charset=utf-8');
 // Validate token.
 try {
     $editorajaxinterface = new editor_ajax();
-    if ($action != 'ltiParams' &&
-        !$editorajaxinterface->validateEditorToken(required_param('token', PARAM_RAW))) {
+    if (
+        $action != 'ltiParams' &&
+        !$editorajaxinterface->validateEditorToken(required_param('token', PARAM_RAW))
+    ) {
         print json_encode(['error' => get_string('invalidtoken_error', 'local_och5p')]);
         die;
     }
-} catch (\moodle_exception $e ) {
+} catch (\moodle_exception $e) {
     print json_encode(['error' => $e->getMessage()]);
     die;
 }
