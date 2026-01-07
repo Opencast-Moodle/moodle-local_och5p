@@ -36,7 +36,6 @@ require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class behat_local_och5p extends behat_base {
-
     /**
      * adds a breakpoints
      * stops the execution until you hit enter in the console
@@ -88,7 +87,7 @@ class behat_local_och5p extends behat_base {
 JS;
         try {
             $this->getSession()->executeScript($function);
-        } catch (\moodle_exception $e ) {
+        } catch (\moodle_exception $e) {
             throw new \moodle_exception('behat_error_unabletofind_h5piframe', 'local_och5p');
         }
     }
@@ -107,8 +106,10 @@ JS;
         $isinstalled = false;
         $trycount = 0;
         do {
-            if (array_key_exists('H5P.InteractiveVideo', $libraries) &&
-                array_key_exists('H5PEditor.InteractiveVideo', $libraries)) {
+            if (
+                array_key_exists('H5P.InteractiveVideo', $libraries) &&
+                array_key_exists('H5PEditor.InteractiveVideo', $libraries)
+            ) {
                 $isinstalled = true;
             } else if ($trycount < $maxtry) {
                 sleep($intervalseconds);

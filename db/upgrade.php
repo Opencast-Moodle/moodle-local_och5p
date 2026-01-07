@@ -42,7 +42,6 @@ function xmldb_local_och5p_upgrade($oldversion) {
     }
 
     if ($oldversion < 2023042801) {
-
         // Remove old LTI configurations of the plugin and bring the tool_opencast LTI configuration in the game.
         $hasconfiguredlti = opencast_manager::is_lti_credentials_configured();
 

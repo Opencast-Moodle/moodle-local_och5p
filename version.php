@@ -32,6 +32,5 @@ $plugin->supported = [500, 500];
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
     'mod_hvp' => 2024112100,
-    'block_opencast' => 2025080102,
     'tool_opencast' => 2025080103,
 ];
