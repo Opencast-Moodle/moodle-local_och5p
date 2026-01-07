@@ -27,7 +27,7 @@ namespace local_och5p\local;
 
 use tool_opencast\exception\opencast_api_response_exception;
 use tool_opencast\local\api;
-use block_opencast\local\apibridge;
+use tool_opencast\local\apibridge;
 use tool_opencast\local\settings_api;
 use oauth_helper;
 use moodle_exception;
@@ -115,25 +115,18 @@ class opencast_manager {
             throw new opencast_api_response_exception($response);
         }
 
-        // Parse the response body to work with arrays, which is easier.
-        $searchresult = json_decode(json_encode($response['body']), true);
+        // Using OcUtils from the OpencastApi namespace located in tool_opencast vendor for easier value extraction.
+        $mediapackage = \OpencastApi\Util\OcUtils::findValueByKey($response['body'], 'mediapackage');
 
-        // Extract the tracks from mediapackage, for Opencast < 16.
-        $tracks = (isset($searchresult['search-results']['result']) ?
-            $searchresult['search-results']['result']['mediapackage']['media']['track'] :
-            null);
-
-        // Opencast >= 16 support.
-        if (empty($tracks)) {
-            $tracks = (isset($searchresult['result'][0]) ?
-                $searchresult['result'][0]['mediapackage']['media']['track'] :
-                null);
-        }
+        $tracks = $mediapackage->media->track ?? null;
 
         // If tracks does not exists, we return moodle_exception.
         if (!$tracks) {
             throw new moodle_exception('no_tracks_error', 'local_och5p');
         }
+
+        // Make sure tracks is an array.
+        $tracks = json_decode(json_encode($tracks), true);
 
         $videotracks = [];
         // If there is video key inside the tracks array, that means it is a single track.
