@@ -13,10 +13,14 @@ System requirements
    - versions (< v3.0-r1):
       - <a href="https://moodle.org/plugins/mod_hvp">mod_hvp</a> (Min. version: <a href="https://moodle.org/plugins/mod_hvp/1.22.3/24438">Interactive Content – H5P 1.22.3</a>)
       - <a href="https://github.com/Opencast-Moodle/moodle-block_opencast">block_opencast</a> (Min. version: <a href="https://github.com/Opencast-Moodle/moodle-block_opencast/releases/tag/v3.11-r1">v3.11-r1</a>)
-   - version (> v3.0-r1):
+   - version (> v3.0-r1 & < v5.x):
       - <a href="https://moodle.org/plugins/mod_hvp">mod_hvp</a> (Min. version: <a href="https://moodle.org/plugins/mod_hvp/1.22.4/25878">Interactive Content – H5P 1.22.4</a>)
       - <a href="https://github.com/Opencast-Moodle/moodle-tool_opencast">tool_opencast</a> (Min. version: <a href="https://github.com/Opencast-Moodle/moodle-tool_opencast/releases/tag/v4.0-r1">v4.0-r1</a>)
       - <a href="https://github.com/Opencast-Moodle/moodle-block_opencast">block_opencast</a> (Min. version: <a href="https://github.com/Opencast-Moodle/moodle-block_opencast/releases/tag/v4.0-r1">v4.0-r1</a>)
+
+   - version (v5.x):
+     - Interactive Content – H5P 1.27.1 or newer.
+      - <a href="https://github.com/Opencast-Moodle/moodle-tool_opencast">tool_opencast</a> (Min. version: <a href="https://github.com/Opencast-Moodle/moodle-tool_opencast/releases/tag/v5.0-r4">v5.0-r4</a>)
 
 Opencast configuration for multiple nodes setups:
 ------------------
