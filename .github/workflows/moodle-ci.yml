@@ -13,7 +13,7 @@ jobs:
       requires-tool-plugin: true
       requires-block-plugin: true
       requires-hvp-plugin: true
-      branch-tool-plugin: main
+      branch-tool-plugin: jwt # For test only in this branch
       branch-block-plugin: main
       branch-hvp-plugin: 1.27.1
       branch-opencast-docker-default: 17.1
