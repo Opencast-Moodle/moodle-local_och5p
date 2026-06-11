@@ -26,7 +26,7 @@
 use local_och5p\local\theme_manager;
 
 /**
- * Extends and unextends the themes based on the theme selcetion in admi n setting.
+ * Extends and un-extends the themes based on the theme selection in admin setting.
  */
 function local_och5p_extend_themes() {
 
