@@ -35,3 +35,6 @@
 
 ### v4.5-r2
 - Add self-extended theme handling (#20)
+
+### v4.5-r3
+- jwt support for 4.5 (#26)
