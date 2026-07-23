@@ -38,3 +38,6 @@
 
 ### v5.0-r1
 - Moodle 5.0+ compatible version
+
+### v5.0-r2
+- Integrate JWT authentication (5.x) (#25)
